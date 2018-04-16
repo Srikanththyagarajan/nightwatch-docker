@@ -1,4 +1,4 @@
-FROM artifactory.armorica.gk:9000/node:carbon-alpine
+FROM node:carbon-alpine
 
 RUN apk --update add openjdk8-jre
 
