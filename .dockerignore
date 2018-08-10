@@ -1,2 +1,15 @@
+.nightwatch/
+commands/
+logs/
+page-objects/
+test/
+
+.eslintignore
+.eslintrc
+.gitignore
+docker-compose.yml
 Dockerfile
+globals.js
+package-lock.json
+package.json
 README.md

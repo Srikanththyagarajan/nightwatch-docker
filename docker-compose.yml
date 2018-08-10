@@ -3,8 +3,6 @@ services:
   app:
     build: "./"
     container_name: "docker-nightwatch"
-    ports:
-      - "5555:5555"
     restart: always
     volumes:
       - ./:/home/node/app

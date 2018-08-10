@@ -1,25 +1,107 @@
 # nightwatch-docker
 
-Struggling with Nightwatch inside docker.
+[NightwatchJS](http://nightwatchjs.org/) running inside a [Docker](https://www.docker.com/)
+container.
 
-To run:
+Writes [Allure Test Report](http://allure.qatools.ru/) reports to keep an eye on tests even after
+they have run.
+
+## Setup
+
+### Prerequisites
+
+#### On a local machine
+
+When running this test runner on a local machine you will need [NodeJS](https://nodejs.org/en/) and
+[npm](https://www.npmjs.com/) installed.
+
+_Local is not run through [Docker](https://www.docker.com/) as the browser can be seen when running
+locally. When running in [Docker](https://www.docker.com/) the browser will run headless inside the
+container, and will thus not be seen._
+
+#### Inside the container
+
+When running the tests on a CI server you will need [Docker](https://www.docker.com/) and
+[Docker Compose](https://docs.docker.com/compose/) installed.
+
+### Installation
+
+#### On a local machine
+
+Simply install the required [npm](https://www.npmjs.com/) dependencies:
+
+```sh
+$ npm install
+```
+
+#### Inside the container
+
+Build the [Docker](https://www.docker.com/) image:
+
+```sh
+$ docker-compose build
+```
+
+Install the required [npm](https://www.npmjs.com/) dependencies:
 
 ```sh
 $ docker-compose run --rm app npm i
-$ docker-compose up
 ```
 
-Then check the `/logs/selenium-debug.log` file, which would show something like:
+## Usage
 
-```
-14:22:12.200 INFO [GridLauncherV3.launch] - Selenium build info: version: '3.11.0', revision: 'e59cfb3'
-14:22:12.201 INFO [GridLauncherV3$1.launch] - Launching a standalone Selenium Server on port 5555
-2018-04-16 14:22:12.264:INFO::main: Logging initialized @260ms to org.seleniumhq.jetty9.util.log.StdErrLog
-14:22:12.381 INFO [SeleniumServer.boot] - Welcome to Selenium for Workgroups....
-14:22:12.382 INFO [SeleniumServer.boot] - Selenium Server is up and running on port 5555
-14:22:12.627 INFO [ActiveSessionFactory.apply] - Capabilities are: Capabilities {acceptSslCerts: true, browserName: chrome, chromeOptions: {args: [--headless]}, javascriptEnabled: true, name: Landing, webStorageEnabled: true}
-14:22:12.628 INFO [ActiveSessionFactory.lambda$apply$11] - Matched factory org.openqa.selenium.remote.server.ServicedSession$Factory (provider: org.openqa.selenium.chrome.ChromeDriverService)
-14:22:32.644 ERROR [OsProcess.checkForError] - org.apache.commons.exec.ExecuteException: Execution failed (Exit value: -559038737. Caused by java.io.IOException: Cannot run program "/home/node/app/node_modules/chromedriver/lib/chromedriver/chromedriver" (in directory "."): error=2, No such file or directory)
+A list of test commands have been set up to run tests on any necessary environment. These
+environments are `local`, `dev`, `qa` and `staging`. The default test environment for the `npm test`
+command is set to `qa`.
+
+#### On a local machine
+
+`local`:
+
+```sh
+$ npm run test:local
 ```
 
-Although I can browse to the file `/home/node/app/node_modules/chromedriver/lib/chromedriver/chromedriver` so I am pretty sure it exists.
+`dev`:
+
+```sh
+$ npm run test:dev
+```
+
+`qa`:
+
+```sh
+$ npm run test:qa
+```
+
+`staging`:
+
+```sh
+$ npm run test:staging
+```
+
+#### Inside the container
+
+`local`:
+
+```sh
+$ docker-compose run --rm app npm run test:local:dockerhost
+```
+
+`dev`:
+
+```sh
+$ docker-compose run --rm app npm run test:dev:dockerhost
+```
+
+`qa`:
+
+```sh
+$ docker-compose run --rm app npm run test:qa:dockerhost
+```
+
+`staging`:
+
+```sh
+$ docker-compose run --rm app npm run test:staging:dockerhost
+```

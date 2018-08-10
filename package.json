@@ -4,13 +4,25 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "nightwatch --env local",
-    "lint": "eslint --ext .js ."
+    "lint": "eslint --ext .js .",
+    "nightwatch:dockerhost": "nightwatch --config ./.nightwatch/nightwatch.config.dockerhost.js",
+    "nightwatch:local": "nightwatch --config ./.nightwatch/nightwatch.config.js",
+    "test": "npm run nightwatch:local -- --env qa",
+    "test:dockerhost": "npm run nightwatch:dockerhost -- --env qa",
+    "test:dev": "npm run nightwatch:local -- --env dev",
+    "test:dev:dockerhost": "npm run nightwatch:dockerhost -- --env dev",
+    "test:local": "npm run nightwatch:local -- --env local",
+    "test:local:dockerhost": "npm run nightwatch:dockerhost -- --env local",
+    "test:qa": "npm run nightwatch:local -- --env qa",
+    "test:qa:dockerhost": "npm run nightwatch:dockerhost -- --env qa",
+    "test:staging": "npm run nightwatch:local -- --env staging",
+    "test:staging:dockerhost": "npm run nightwatch:dockerhost -- --env staging"
   },
   "dependencies": {
-    "chromedriver": "^2.32.1",
-    "nightwatch": "^0.9.16",
-    "selenium-server": "^3.9.1"
+    "chromedriver": "^2.41.0",
+    "nightwatch": "^0.9.21",
+    "nightwatch-allure-adapter": "^1.2.4",
+    "selenium-server": "^3.13.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

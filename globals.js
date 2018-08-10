@@ -1,13 +1,15 @@
 const chromedriver = require('chromedriver');
+const allure = require('nightwatch-allure-adapter');
 
 module.exports = {
-  before(done) {
+  beforeEach(done) {
     chromedriver.start();
     done();
   },
-  after(done) {
+  afterEach(done) {
     chromedriver.stop();
     done();
   },
-  waitForConditionTimeout: 60000,
+  reporter: allure.write,
+  waitForConditionTimeout: 10000,
 };
